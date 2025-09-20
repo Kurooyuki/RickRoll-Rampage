@@ -10,7 +10,23 @@
             text-align: center;
             margin: 0;
             overflow: hidden;
-            background-color: #ff00ff; /* Background statis pink menyala */
+            /* Background bergerak dengan animasi gradien yang ditingkatkan */
+            background: linear-gradient(45deg, #ff00ff, #ff1493, #00ffff, #00ff00, #ff4500, #ff00ff);
+            background-size: 200% 200%;
+            animation: moveBackground 8s ease-in-out infinite, pulseBackground 4s ease-in-out infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 50% 0%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        @keyframes pulseBackground {
+            0%, 100% { background-size: 200% 200%; }
+            50% { background-size: 220% 220%; }
         }
 
         h1 {
@@ -61,6 +77,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: Arial, sans-serif;
+            margin: 5px;
         }
 
         /* Styling untuk gambar acak */
@@ -78,7 +95,7 @@
 <body>
     <h1>NEVER GONNA GIVE YOU UP!</h1>
     <p>Nikmati gangguan ini!</p>
-    <button id="playButton">Mainkan Suara Mengganggu!</button>
+    <button id="playButton">Download!</button>
 
     <audio id="annoyingSound" loop>
         <source src="https://www.myinstants.com/media/sounds/rickroll.mp3" type="audio/mp3">
@@ -90,6 +107,13 @@
             'images/rick1.jpg',
             'images/rick2.jpg',
             'images/rick3.jpg',
+            'images/rick4.jpg',
+            'images/rick4.jpg',
+            'images/rick4.jpg',
+            'images/rick4.jpg',
+            'images/rick4.jpg',
+            'images/rick4.jpg',
+            'images/rick4.jpg',
             'images/rick4.jpg',
             'images/rick5.jpg'
         ];
@@ -110,7 +134,7 @@
         }
 
         // Tampilkan gambar acak setiap 2 detik
-        setInterval(showRandomImage, 2000);
+        setInterval(showRandomImage, 200);
 
         // Pop-up mengganggu setiap 3 detik
         function createPopup() {
@@ -142,13 +166,35 @@
                 });
             } else {
                 audio.play().then(() => {
-                    isAudioUnlocked = true; // Audio diizinkan setelah interaksi pertama
+                    isAudioUnlocked = true;
                     alert('Suara kini diizinkan! Nikmati gangguan!');
                 }).catch((error) => {
                     console.error('Error unlocking audio:', error);
-                    alert('Browser memblokir suara! Klik tombol "Mainkan Suara Mengganggu!" lagi untuk mengizinkan.');
+                    alert('Browser memblokir suara! Klik tombol "Mainkan & Download Gangguan!" lagi untuk mengizinkan.');
                 });
             }
+        }
+
+        // Fungsi untuk mendownload file lirik annoying
+        function downloadAnnoyingFile() {
+            const content = `By:KuroYuki
+                Youtube:KuroyukiYoutube`;
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'rickroll.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert('File didownload! Baca dan rasakan efek annoying-nya!');
+        }
+
+        // Fungsi gabungan untuk tombol
+        function handlePlayAndDownload() {
+            playAnnoyingSound(); // Memutar suara
+            downloadAnnoyingFile(); // Mendownload file
         }
 
         // Alert dengan permintaan interaksi
@@ -163,15 +209,20 @@
             if (confirm(message) && isAudioUnlocked) {
                 playAnnoyingSound();
             } else if (!isAudioUnlocked) {
-                alert('Klik tombol "Mainkan Suara Mengganggu!" terlebih dahulu untuk mengizinkan suara.');
+                alert('Klik tombol "Mainkan & Download Gangguan!" terlebih dahulu untuk mengizinkan suara.');
             }
         }
 
         // Jalankan alert acak setiap 5 detik
-        setInterval(showAlertWithSound, 50000);
+        setInterval(showAlertWithSound, 5000);
 
-        // Event listener untuk tombol
-        document.getElementById('playButton').addEventListener('click', playAnnoyingSound);
+        // Event listener untuk tombol gabungan
+        document.getElementById('playButton').addEventListener('click', handlePlayAndDownload);
+
+        // Refresh otomatis setiap 10 detik
+        setInterval(() => {
+            location.reload();
+        }, 10000); // 10000 ms = 10 detik
     </script>
 </body>
 </html>
