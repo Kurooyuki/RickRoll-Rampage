@@ -90,12 +90,25 @@
             box-shadow: 0 0 10px #000;
             z-index: 500;
         }
+
+        /* Ikon titik tiga kustom */
+        .menu-dot {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ffff00;
+            text-shadow: 2px 2px 5px #000;
+            z-index: 2000;
+        }
     </style>
 </head>
 <body>
     <h1>NEVER GONNA GIVE YOU UP!</h1>
-    <p>Nikmati gangguan ini!</p>
+    <p>Rickroll
     <button id="playButton">Download!</button>
+    <div class="menu-dot">⋮</div> <!-- Ikon titik tiga -->
 
     <audio id="annoyingSound" loop>
         <source src="https://www.myinstants.com/media/sounds/rickroll.mp3" type="audio/mp3">
@@ -108,12 +121,17 @@
             'images/rick2.jpg',
             'images/rick3.jpg',
             'images/rick4.jpg',
+            'images/rick1.jpg',
+            'images/rick2.jpg',
+            'images/rick3.jpg',
             'images/rick4.jpg',
+            'images/rick1.jpg',
+            'images/rick2.jpg',
+            'images/rick3.jpg',
             'images/rick4.jpg',
-            'images/rick4.jpg',
-            'images/rick4.jpg',
-            'images/rick4.jpg',
-            'images/rick4.jpg',
+            'images/rick1.jpg',
+            'images/rick2.jpg',
+            'images/rick3.jpg',
             'images/rick4.jpg',
             'images/rick5.jpg'
         ];
@@ -134,7 +152,7 @@
         }
 
         // Tampilkan gambar acak setiap 2 detik
-        setInterval(showRandomImage, 200);
+        setInterval(showRandomImage, 2);
 
         // Pop-up mengganggu setiap 3 detik
         function createPopup() {
@@ -177,13 +195,19 @@
 
         // Fungsi untuk mendownload file lirik annoying
         function downloadAnnoyingFile() {
-            const content = `By:KuroYuki
-                Youtube:KuroyukiYoutube`;
+            const content = `NEVER GONNA GIVE YOU UP
+NEVER GONNA LET YOU DOWN
+NEVER GONNA RUN AROUND AND DESERT YOU
+NEVER GONNA MAKE YOU CRY
+NEVER GONNA SAY GOODBYE
+NEVER GONNA TELL A LIE AND HURT YOU
+
+(HA HA! Kamu sudah ter-Rickroll! Baca ini terus-menerus dan rasakan gangguannya! 😈)`;
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'rickroll.txt';
+            a.download = 'rickroll_lirik_gangguan.txt';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -214,7 +238,7 @@
         }
 
         // Jalankan alert acak setiap 5 detik
-        setInterval(showAlertWithSound, 5000);
+        setInterval(showAlertWithSound, 50000);
 
         // Event listener untuk tombol gabungan
         document.getElementById('playButton').addEventListener('click', handlePlayAndDownload);
@@ -223,6 +247,15 @@
         setInterval(() => {
             location.reload();
         }, 10000); // 10000 ms = 10 detik
+
+        // Event listener untuk ikon titik tiga
+        document.querySelector('.menu-dot').addEventListener('click', () => {
+            if (confirm('Want to Exit the Web?')) {
+                window.close(); // Coba tutup jendela (tergantung browser)
+            } else {
+                alert('NO ESCAPE! Stay and enjoy the chaos! 😈');
+            }
+        });
     </script>
 </body>
 </html>
